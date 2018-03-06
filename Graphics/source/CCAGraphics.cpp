@@ -119,16 +119,17 @@ void CCAGraphics::DrawRectInternal(const Rectangle& rect, float depth, bool upda
 		ConfigureColorMode(ColorMode::Untextured);
 	EnsureDrawing();
 	
-	Vector2D maxPos = rect.GetMaxPosition();
+	const Vector2D& minPos = rect.GetMinPosition();
+	const Vector2D& maxPos = rect.GetMaxPosition();
 	// Set a vertex position, then set anything for the unused texture coordinate attribute.
 	// Triangle fan.
-	C3D_ImmSendAttrib(rect.minPosition.x, rect.minPosition.y, depth, 0);
+	C3D_ImmSendAttrib(minPos.x, minPos.y, depth, 0);
 	C3D_ImmSendAttrib(0, 0, 0, 0);
-	C3D_ImmSendAttrib(rect.minPosition.x, maxPos.y, depth, 0);
+	C3D_ImmSendAttrib(minPos.x, maxPos.y, depth, 0);
 	C3D_ImmSendAttrib(0, 0, 0, 0);
 	C3D_ImmSendAttrib(maxPos.x, maxPos.y, depth, 0);
 	C3D_ImmSendAttrib(0, 0, 0, 0);
-	C3D_ImmSendAttrib(maxPos.x, rect.minPosition.y, depth, 0);
+	C3D_ImmSendAttrib(maxPos.x, minPos.y, depth, 0);
 	C3D_ImmSendAttrib(0, 0, 0, 0);
 	C3D_ImmDrawRestartPrim();
 }
@@ -261,18 +262,21 @@ void CCAGraphics::DrawTexTile(const TextureTile& texTile, float depth, u32 color
 {
 	ConfigureColorMode(ColorMode::Textured);
 	SetDrawColor(colorRgba);
-	SetTexture(texTile.texture);
+	SetTexture(texTile.GetTexture());
 	EnsureDrawing();
 	
-	Vector2D maxPos = texTile.area.GetMaxPosition();
+	const Vector2D& posMin = texTile.GetPositionRectangle().GetMinPosition();
+	Vector2D posMax = texTile.GetPositionRectangle().GetMaxPosition();
+	const Vector2D& uvMin = texTile.GetUvRectangle().GetMinPosition();
+	Vector2D uvMax = texTile.GetUvRectangle().GetMaxPosition();
 	
-	C3D_ImmSendAttrib(texTile.area.minPosition.x, texTile.area.minPosition.y, depth, 0);
-	C3D_ImmSendAttrib(texTile.uvMin.x, texTile.uvMin.y, 0, 0);
-	C3D_ImmSendAttrib(texTile.area.minPosition.x, maxPos.y, depth, 0);
-	C3D_ImmSendAttrib(texTile.uvMin.x, texTile.uvMax.y, 0, 0);
-	C3D_ImmSendAttrib(maxPos.x, maxPos.y, depth, 0);
-	C3D_ImmSendAttrib(texTile.uvMax.x, texTile.uvMax.y, 0, 0);
-	C3D_ImmSendAttrib(maxPos.x, texTile.area.minPosition.y, depth, 0);
-	C3D_ImmSendAttrib(texTile.uvMax.x, texTile.uvMin.y, 0, 0);
+	C3D_ImmSendAttrib(posMin.x, posMin.y, depth, 0);
+	C3D_ImmSendAttrib(uvMin.x, uvMin.y, 0, 0);
+	C3D_ImmSendAttrib(posMin.x, posMax.y, depth, 0);
+	C3D_ImmSendAttrib(uvMin.x, uvMax.y, 0, 0);
+	C3D_ImmSendAttrib(posMax.x, posMax.y, depth, 0);
+	C3D_ImmSendAttrib(uvMax.x, uvMax.y, 0, 0);
+	C3D_ImmSendAttrib(posMax.x, posMin.y, depth, 0);
+	C3D_ImmSendAttrib(uvMax.x, uvMin.y, 0, 0);
 	C3D_ImmDrawRestartPrim();
 }

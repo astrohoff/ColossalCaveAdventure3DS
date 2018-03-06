@@ -13,12 +13,6 @@ Vector2D::Vector2D(float x, float y)
 }
 
 
-void Vector2D::Set(const Vector2D& vect2D)
-{
-	x = vect2D.x;
-	y = vect2D.y;
-}
-
 
 Vector2D Vector2D::operator+(const Vector2D& v) const
 {

@@ -1,17 +1,37 @@
 #include "TextureTile.h"
 
+TextureTile::TextureTile(){}
+
 TextureTile::TextureTile(C3D_Tex * texture)
 {
 	this->texture = texture;
-	area = Rectangle(0, 0, 50, 50);
-	uvMin = Vector2D(0, 0);
-	uvMax = Vector2D(1, 1);
+	posRect = Rectangle(0, 0, 50, 50);
+	uvRect = Rectangle(0, 0, 1, 1);
 }
 
-TextureTile::TextureTile(C3D_Tex * texture, Rectangle area, Vector2D uvMin, Vector2D uvMax)
+TextureTile::TextureTile(C3D_Tex * texture, Rectangle positionRectangle, Rectangle uvRectangle)
 {
 	this->texture = texture;
-	this->area = area;
-	this->uvMin = uvMin;
-	this->uvMax = uvMax;
+	posRect = positionRectangle;
+	uvRect = uvRectangle;
+}
+
+const Rectangle& TextureTile::GetPositionRectangle() const
+{
+	return posRect;
+}
+
+C3D_Tex * TextureTile::GetTexture() const
+{
+	return texture;
+}
+
+const Rectangle& TextureTile::GetUvRectangle() const
+{
+	return uvRect;
+}
+
+void TextureTile::SetPosition(Vector2D position)
+{
+	posRect.SetMinPosition(position);
 }

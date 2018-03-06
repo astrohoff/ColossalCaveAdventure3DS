@@ -19,34 +19,57 @@ Rectangle::Rectangle(float minX, float minY, float sizeX, float sizeY)
 	size = Vector2D(sizeX, sizeY);
 }
 
+
+
+const Vector2D& Rectangle::GetMinPosition() const
+{
+	return minPosition;
+}
+
+const Vector2D& Rectangle::GetSize() const
+{
+	return size;
+}
+
+void Rectangle::SetMinPosition(Vector2D position)
+{
+	minPosition = position;
+}
+
+void Rectangle::SetSize(Vector2D size)
+{
+	this->size = size;
+}
+
+
+
 Vector2D Rectangle::GetMaxPosition() const
 {
 	return minPosition + size;
 }
 
-Vector2D Rectangle::GetCenter() const
+Vector2D Rectangle::GetCenterPosition() const
 {
 	return minPosition + size / 2;
-}
-
-void Rectangle::SetPosition(const Vector2D& position)
-{
-	minPosition.Set(position);
-}
-
-float Rectangle::GetAspectRatio() const
-{
-	return size.x / size.y;
 }
 
 bool Rectangle::Contains(const Vector2D& point) const
 {
 	Vector2D maxPos = GetMaxPosition();
-	bool isContained = point.x >= minPosition.x;
-	isContained = isContained && point.x <= maxPos.x;
-	isContained = isContained && point.y >= minPosition.y;
-	isContained = isContained && point.y <= maxPos.y;
-	return isContained;
+	return point.x >= minPosition.x && point.x <= maxPos.x &&
+		   point.y >= minPosition.y && point.y <= maxPos.y;
+}
+
+
+Rectangle Rectangle::ConstructMinMax(Vector2D minPosition, Vector2D maxPosition)
+{
+	return Rectangle(minPosition, maxPosition - minPosition);
+}
+
+
+/*float Rectangle::GetAspectRatio() const
+{
+	return size.x / size.y;
 }
 
 Rectangle Rectangle::GetPaddedRect(const Vector2D& padding) const
@@ -81,4 +104,4 @@ void Rectangle::ApplyAspectRatio(float newAspect, bool shrink) {
 	Vector2D sizeDiff = size - newSize;
 	size = newSize;
 	minPosition += sizeDiff / 2;
-}
+}*/

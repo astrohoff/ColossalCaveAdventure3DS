@@ -6,13 +6,17 @@
 class TextureTile
 {
 	public:
-		Rectangle area;
-		C3D_Tex * texture;
-		Vector2D uvMin, uvMax;
-		
+		TextureTile();
 		TextureTile(C3D_Tex * texture);
-		TextureTile(C3D_Tex * texture, Rectangle area, Vector2D uvMin, Vector2D uvMax);
+		TextureTile(C3D_Tex * texture, Rectangle positionRectangle, Rectangle uvRectangle);
+		
+		const Rectangle& GetPositionRectangle() const;
+		C3D_Tex * GetTexture() const;
+		const Rectangle& GetUvRectangle() const;
+		void SetPosition(Vector2D position);
 			
 	private:
-		
+		Rectangle posRect;
+		C3D_Tex * texture;
+		Rectangle uvRect;	
 };
