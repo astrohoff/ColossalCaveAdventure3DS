@@ -16,15 +16,19 @@ class GlyphGroup
 		const std::string& GetText() const;
 		float GetWidth() const;
 		void Draw() const;
-		
+		void Draw(const Rectangle& clipRect) const;
+		void AddText(const std::string& text);
+		void Clear();
 	
 	private:
 		std::string text;
 		Vector2D position;
-		std::vector<TextureTile> glyphTiles;
-		std::vector<Vector2D> tileOffsets;
+		float fontScale;
 		float depth;
 		u32 color;
+		std::vector<TextureTile> glyphTiles;
+		std::vector<Vector2D> tileOffsets;
 		
-		void SetupGlyphs(float fontScale);
+		void SetupGlyphs();
+		void AddGlyph(char c);
 };

@@ -19,7 +19,7 @@ class CCAGraphics
 		static void SetRenderScreen(RenderScreen screen, bool forceSet);
 		static void DrawRectangle(const Rectangle& rect, float depth);
 		static void DrawRectangle(const Rectangle& rect, float depth, u32 colorRgba);
-		static void DrawTexTile(const TextureTile& texTile, float depth, u32 colorRgba);
+		static void DrawTexture(C3D_Tex * tex, const Rectangle& posRect, const Rectangle& uvRect, float depth, u32 colorRgba);
 		static void FrameStart();
 		static void FrameStart(RenderScreen screen);
 		static void FrameEnd();

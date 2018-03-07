@@ -4,7 +4,7 @@ Terminal::Terminal()
 {
 	frame = OutlinedRectangle(Rectangle(0, 0, 220, 30), 0.91f);
 	promptGlyph = GlyphGroup(">", Vector2D(3, 2), 0.8f, 0.90f);
-	cmdString = "";
+	cmdGlyphs = GlyphGroup("", Vector2D(30, 4), 0.7f, 0.90f);
 }
 
 
@@ -12,8 +12,7 @@ void Terminal::Draw() const
 {
 	frame.Draw();
 	promptGlyph.Draw();
-	if(cmdString.size() > 0)
-		cmdGlyphs.Draw();
+	cmdGlyphs.Draw();
 }
 
 bool Terminal::ContainsPoint(const Vector2D& point) const
@@ -23,18 +22,17 @@ bool Terminal::ContainsPoint(const Vector2D& point) const
 
 void Terminal::AddCommand(const std::string& cmdString)
 {
-	if(this->cmdString.size() > 0)
-		this->cmdString.append(" ");
-	this->cmdString.append(cmdString);
-	cmdGlyphs = GlyphGroup(this->cmdString, Vector2D(30, 4), 0.7f, 0.90f);
+	if(cmdGlyphs.GetText().length() > 0)
+		cmdGlyphs.AddText(" ");
+	cmdGlyphs.AddText(cmdString);
 }
 
 const std::string& Terminal::GetText() const
 {
-	return cmdString;
+	return cmdGlyphs.GetText();
 }
 
 void Terminal::Clear()
 {
-	cmdString = "";
+	cmdGlyphs.Clear();
 }

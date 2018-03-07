@@ -258,17 +258,17 @@ void CCAGraphics::DrawRectangle(const Rectangle& rect, float depth, u32 colorRgb
 	DrawRectInternal(rect, depth, false);
 }
 
-void CCAGraphics::DrawTexTile(const TextureTile& texTile, float depth, u32 colorRgba)
+void CCAGraphics::DrawTexture(C3D_Tex * tex, const Rectangle& posRect, const Rectangle& uvRect, float depth, u32 colorRgba)
 {
 	ConfigureColorMode(ColorMode::Textured);
 	SetDrawColor(colorRgba);
-	SetTexture(texTile.GetTexture());
+	SetTexture(tex);
 	EnsureDrawing();
 	
-	const Vector2D& posMin = texTile.GetPositionRectangle().GetMinPosition();
-	Vector2D posMax = texTile.GetPositionRectangle().GetMaxPosition();
-	const Vector2D& uvMin = texTile.GetUvRectangle().GetMinPosition();
-	Vector2D uvMax = texTile.GetUvRectangle().GetMaxPosition();
+	const Vector2D& posMin = posRect.GetMinPosition();
+	Vector2D posMax = posRect.GetMaxPosition();
+	const Vector2D& uvMin = uvRect.GetMinPosition();
+	Vector2D uvMax = uvRect.GetMaxPosition();
 	
 	C3D_ImmSendAttrib(posMin.x, posMin.y, depth, 0);
 	C3D_ImmSendAttrib(uvMin.x, uvMin.y, 0, 0);

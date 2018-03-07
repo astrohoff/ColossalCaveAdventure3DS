@@ -67,41 +67,22 @@ Rectangle Rectangle::ConstructMinMax(Vector2D minPosition, Vector2D maxPosition)
 }
 
 
-/*float Rectangle::GetAspectRatio() const
+bool Rectangle::Contains(const Rectangle& otherRect) const
 {
-	return size.x / size.y;
+	Vector2D maxPos = GetMaxPosition();
+	const Vector2D& otherMinPos = otherRect.GetMinPosition();
+	Vector2D otherMaxPos = otherRect.GetMaxPosition();
+	
+	return minPosition.x <= otherMinPos.x && minPosition.y <= otherMinPos.y &&
+			maxPos.x >= otherMaxPos.x && maxPos.y >= otherMaxPos.y;
 }
 
-Rectangle Rectangle::GetPaddedRect(const Vector2D& padding) const
+bool Rectangle::Intersects(const Rectangle& otherRect) const
 {
-	Vector2D posDiff(-padding.x, -padding.y);
-	Vector2D sizeDiff(2 * padding.x, 2 * padding.y);
-	Vector2D paddedPos = minPosition + posDiff;
-	Vector2D paddedSize = size + sizeDiff;
-	if (paddedSize.x < 0 || paddedSize.y < 0) {
-		paddedPos = minPosition;
-		paddedSize = size;
-	}
-	return Rectangle(paddedPos, paddedSize);
+	Vector2D maxPos = GetMaxPosition();
+	const Vector2D& otherMin = otherRect.GetMinPosition();
+	Vector2D otherMax = otherRect.GetMaxPosition();
+	
+	return otherMin.x <= maxPos.x && otherMax.x >= minPosition.x &&
+			otherMin.y <= maxPos.y && otherMax.y >= minPosition.y;
 }
-
-void Rectangle::ApplyAspectRatio(float newAspect, bool shrink) {
-	float aspect = GetAspectRatio();
-	if (aspect == newAspect)
-	{
-		return;
-	}
-	Vector2D newSize;
-	bool lockX = (newAspect > aspect && shrink) || (newAspect < aspect && !shrink);
-	if (lockX) 
-	{
-		newSize = Vector2D(size.x, size.x / newAspect);
-	}
-	else
-	{
-		newSize = Vector2D(size.y * newAspect, size.y);
-	}
-	Vector2D sizeDiff = size - newSize;
-	size = newSize;
-	minPosition += sizeDiff / 2;
-}*/

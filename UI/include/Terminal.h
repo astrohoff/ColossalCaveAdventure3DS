@@ -19,5 +19,4 @@ class Terminal
 		OutlinedRectangle frame;
 		GlyphGroup promptGlyph;
 		GlyphGroup cmdGlyphs;
-		std::string cmdString;
 };

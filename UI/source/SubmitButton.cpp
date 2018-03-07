@@ -4,9 +4,10 @@ SubmitButton::SubmitButton()
 {
 }
 
-SubmitButton::SubmitButton(Terminal * terminal)
+SubmitButton::SubmitButton(Terminal * terminal, TextPanel * textPanel)
 {
 	this->terminal = terminal;
+	this->textPanel = textPanel;
 	oRect = OutlinedRectangle(Rectangle(223, 0, 30, 30), 0.91f);
 	
 	int fontGlyphIndex = fontGlyphIndexFromCodePoint(0x2191);
@@ -24,23 +25,22 @@ SubmitButton::SubmitButton(Terminal * terminal)
 	Vector2D tileUvMax = Vector2D(glyphPosInfo.texcoord.right, glyphPosInfo.texcoord.bottom);
 	Rectangle uvRect = Rectangle::ConstructMinMax(tileUvMin, tileUvMax);
 	
-	icon = TextureTile(glyphSheet, tileArea, uvRect);
+	icon = TextureTile(glyphSheet, tileArea, uvRect, 0.90f, 0xFFFFFFFF);
 	pressed = false;
 }
 
 void SubmitButton::Draw() const
 {
 	oRect.Draw();
-	if(pressed)
-		CCAGraphics::DrawTexTile(icon, 0.90f, 0x000000FF);
-	else
-		CCAGraphics::DrawTexTile(icon, 0.90f, 0xFFFFFFFF);
+	icon.Draw();
 }
 
 void SubmitButton::Press()
 {
 	pressed = true;
 	oRect.SetInnerColor(0xC0C0C0FF);
+	icon.SetColor(0x000000FF);
+	textPanel->AddLine(terminal->GetText());
 	terminal->Clear();
 }
 
@@ -48,6 +48,7 @@ void SubmitButton::Release()
 {
 	pressed = false;
 	oRect.SetInnerColor(0x000000FF);
+	icon.SetColor(0xFFFFFFFF);
 }
 
 bool SubmitButton::ContainsPoint(const Vector2D& point) const

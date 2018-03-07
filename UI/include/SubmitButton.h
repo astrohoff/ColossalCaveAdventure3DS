@@ -4,12 +4,13 @@
 #include "TextureTile.h"
 #include "CCAGraphics.h"
 #include "Terminal.h"
+#include "TextPanel.h"
 
 class SubmitButton
 {
 	public:
 		SubmitButton();
-		SubmitButton(Terminal * terminal);
+		SubmitButton(Terminal * terminal, TextPanel * textPanel);
 		
 		void Draw() const;
 		void Press();
@@ -18,6 +19,7 @@ class SubmitButton
 	
 	private:
 		Terminal * terminal;
+		TextPanel * textPanel;
 		OutlinedRectangle oRect;
 		TextureTile icon;
 		bool pressed;

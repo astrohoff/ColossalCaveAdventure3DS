@@ -15,6 +15,8 @@ class Rectangle {
 		Vector2D GetMaxPosition() const;
 		Vector2D GetCenterPosition() const;
 		bool Contains(const Vector2D& point) const;
+		bool Contains(const Rectangle& otherRect) const;
+		bool Intersects(const Rectangle& otherRect) const;
 		static Rectangle ConstructMinMax(Vector2D minPosition, Vector2D maxPosition);
 		
 	private:

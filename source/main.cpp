@@ -14,6 +14,7 @@
 #include "WindowTab.h"
 #include "Terminal.h"
 #include "SubmitButton.h"
+#include "TextPanel.h"
 
 #define CMD_CAT_CNT		2
 
@@ -24,7 +25,8 @@ int main(){
 	
 	OutlinedRectangle mainFrame(Rectangle(0, 60, 320, 240-60), 0.9f);
 	Terminal terminal;
-	SubmitButton submitButton(&terminal);
+	TextPanel textPanel(0.7f);
+	SubmitButton submitButton(&terminal, &textPanel);
 	
 	CommandGrid movesGrid;
 	CommandGrid nounsGrid;
@@ -133,13 +135,16 @@ int main(){
 		
 		mainFrame.Draw();
 		terminal.Draw();
-		submitButton.Draw();
-		
+		submitButton.Draw();		
 		for(int i = 0; i < CMD_CAT_CNT; i++)
 		{
 			winTabs[i]->Draw();
 			cmdGrids[i]->Draw();
 		}
+		
+		CCAGraphics::SetRenderScreen(CCAGraphics::RenderScreen::Top, false);
+		
+		textPanel.Draw();
 		
 		CCAGraphics::FrameEnd();
 	}
