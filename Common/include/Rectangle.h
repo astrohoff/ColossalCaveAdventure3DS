@@ -17,6 +17,8 @@ class Rectangle {
 		bool Contains(const Vector2D& point) const;
 		bool Contains(const Rectangle& otherRect) const;
 		bool Intersects(const Rectangle& otherRect) const;
+		enum class ScaleOrigin { MinPosition, Center };
+		void Scale(float scale, ScaleOrigin origin);
 		static Rectangle ConstructMinMax(Vector2D minPosition, Vector2D maxPosition);
 		
 	private:

@@ -86,3 +86,10 @@ bool Rectangle::Intersects(const Rectangle& otherRect) const
 	return otherMin.x <= maxPos.x && otherMax.x >= minPosition.x &&
 			otherMin.y <= maxPos.y && otherMax.y >= minPosition.y;
 }
+
+void Rectangle::Scale(float scale, ScaleOrigin origin)
+{
+	if(origin == ScaleOrigin::Center)
+		minPosition = GetCenterPosition() - (size / 2) * scale;
+	size *= scale;
+}

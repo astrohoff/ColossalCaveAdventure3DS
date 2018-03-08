@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "CCAGraphics.h"
+#include "TextHelper.h"
 
 class GlyphGroup
 {
@@ -16,7 +17,7 @@ class GlyphGroup
 		const std::string& GetText() const;
 		float GetWidth() const;
 		void Draw() const;
-		void Draw(const Rectangle& clipRect) const;
+		//void Draw(const Rectangle& clipRect) const;
 		void AddText(const std::string& text);
 		void Clear();
 	
@@ -29,6 +30,5 @@ class GlyphGroup
 		std::vector<TextureTile> glyphTiles;
 		std::vector<Vector2D> tileOffsets;
 		
-		void SetupGlyphs();
 		void AddGlyph(char c);
 };

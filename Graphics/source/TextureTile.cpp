@@ -52,3 +52,8 @@ void TextureTile::SetColor(u32 color)
 {
 	this->color = color;
 }
+
+void TextureTile::Scale(float scale, Rectangle::ScaleOrigin origin)
+{
+	posRect.Scale(scale, origin);
+}

@@ -18,6 +18,7 @@ class TextureTile
 		void Draw() const;
 		void SetDepth(float depth);
 		void SetColor(u32 color);
+		void Scale(float scale, Rectangle::ScaleOrigin origin);
 			
 	private:
 		Rectangle posRect;
